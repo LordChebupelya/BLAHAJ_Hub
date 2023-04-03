@@ -212,7 +212,7 @@ if game.PlaceId == 5490351219 then
         Options = {"1","10","100","1000","10000"},
         CurrentOption = "Not Selected",
         MultiSelections = false
-        Flag = "rebirthAmount", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+        Flag = "rebirthAmount_dropdown", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
         Callback = function(Option)
             selectedRebirth = Option;
         -- The function that takes place when the selected option is changed
