@@ -529,7 +529,7 @@ local speedHackBind = Settings:CreateKeybind({
     -- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
     end,
  })
- local Lockdown = Tab:CreateToggle({
+ local Lockdown = Settings:CreateToggle({
     Name = "Lockdown",
     Info = "Locks EVERYTHING (real)", -- Speaks for itself, Remove if none.
     CurrentValue = false,
