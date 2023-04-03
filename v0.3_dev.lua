@@ -150,19 +150,7 @@ if game.PlaceId == 5490351219 then
     local selectedWorld;
     local selectedRebirth;
     local ClickerSim = Window:CreateTab("Clicker Madness", 0) -- Title, Image (default id: 4483362458)
-    local ClickerSection = ClickerSim:CreateSection("Farming", false)
-    --[[
-        local Toggle = Tab:CreateToggle({
-            Name = "Toggle Example",
-            Info = "Toggle info/Description.", -- Speaks for itself, Remove if none.
-            CurrentValue = false,
-            Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-            Callback = function(Value)
-            -- The function that takes place when the toggle is pressed
-            -- The variable (Value) is a boolean on whether the toggle is true or false
-        end,
-    })
-    ]]    
+    local ClickerSection = ClickerSim:CreateSection("Farming", true)
     local autotap_toggle = ClickerSim:CreateToggle({
         Name = "AutoTap",
         Info = "Taps for you",
@@ -307,7 +295,7 @@ if game.PlaceId == 5490351219 then
         -- The variable (Value) is a boolean on whether the toggle is true or false
         end,
      })
-     local Worlds = ClickerSim:CreateSection("Worlds", false)
+     local Worlds = ClickerSim:CreateSection("Worlds", true)
      local World = ClickerSim:CreateDropdown({
         Name = "Select World",
         Options = {"Lava", "Desert", "Ocean", "Winter", "Toxic", "Candy", "Forest", "Storm", "Blocks", "Space", "Dominus", "Infinity", "Future", "City", "Moon", "Fire"},
@@ -348,7 +336,7 @@ end
 -- Player
 
 local Player = Window:CreateTab("Player", 0) -- Title, Image
-local PlayerSection = Player:CreateSection("Player")
+local PlayerSection = Player:CreateSection("Player", true)
 
 local speedHack = Player:CreateToggle({
     Name = "Change WalkSpeed",
@@ -459,7 +447,7 @@ local Flyhack = Player:CreateButton({
 -- Scripts
 
 local Scripts = Window:CreateTab("Scripts", 0) -- Title, Image
-local ScriptsSection = Scripts:CreateSection("Scripts")
+local ScriptsSection = Scripts:CreateSection("Scripts", true)
 local infiniteyield = Scripts:CreateButton({
     Name = "Execute Infinite Yield",
     Callback = function()
@@ -504,7 +492,7 @@ local realzzhub = Scripts:CreateButton({
 -- Menu Settings
 
 local Settings = Window:CreateTab("Settings", 0) -- Title, Image
-local SettingsSection = Settings:CreateSection("Settings")
+local SettingsSection = Settings:CreateSection("Settings", true)
 local speedHackBind = Settings:CreateKeybind({
     Name = "Toggle SpeedHack",
     CurrentKeybind = "",
