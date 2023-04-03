@@ -5,5 +5,5 @@
 # loadstring
 
 ```lua
-
+loadstring(game:HttpGet('https://raw.githubusercontent.com/LordChebupelya/BLAHAJ_Hub/master/v0.2_dev.lua'))()
 ```
