@@ -199,7 +199,7 @@ if game.PlaceId == 5490351219 then
         Name = "Rebirth Amount",
         Options = {"1","10","100","1000","10000"},
         CurrentOption = "Not Selected",
-        MultiSelections = false
+        MultiSelections = false,
         Flag = "rebirthAmount_dropdown", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
         Callback = function(Option)
             selectedRebirth = Option;
@@ -299,7 +299,7 @@ if game.PlaceId == 5490351219 then
      local World = ClickerSim:CreateDropdown({
         Name = "Select World",
         Options = {"Lava", "Desert", "Ocean", "Winter", "Toxic", "Candy", "Forest", "Storm", "Blocks", "Space", "Dominus", "Infinity", "Future", "City", "Moon", "Fire"},
-        MultiSelections = false
+        MultiSelections = false,
         CurrentOption = "World Not Selected",
         Flag = "world", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
         Callback = function(Option)
@@ -329,8 +329,6 @@ if game.PlaceId == 5490351219 then
         -- The function that takes place when the button is pressed
         end,
      })
-else
-    return end
 end
 
 -- Player
@@ -602,196 +600,5 @@ local DestroyGUI = Settings:CreateButton({
     -- The function that takes place when the button is pressed
     end,
  })
-
---[[
--- Player
-
-local Player = Window:CreateTab("Player", 0) -- Title, Image
-local PlayerSection = Player:CreateSection("Player")
-
-local speedHack = Player:CreateToggle({
-    Name = "Change WalkSpeed",
-    CurrentValue = false,
-    Flag = "speedHack_active", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        getgenv().speedHack = Value;
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-        WalkSpeedSlider:Set(16) -- The new slider integer value
-        Rayfield:Notify({
-            Title = "Module Toggled",
-            Content = "SpeedHack has been toggled!",
-            Duration = 6.5,
-            Image = 4483362458,
-            Actions = { -- Notification Buttons
-               Ignore = {
-                  Name = "Ok",
-                  Callback = function()
-                  print("oke")
-               end
-            },
-         },
-         })
-    -- The function that takes place when the toggle is pressed
-    -- The variable (Value) is a boolean on whether the toggle is true or false
-    end,
-})
-local WalkSpeedSlider = Player:CreateSlider({
-    Name = "WalkSpeed",
-    Range = {16, 500},
-    Increment = 10,
-    Suffix = "WalkSpeed",
-    CurrentValue = 10,
-    Flag = "walkSpeed", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
-    -- The function that takes place when the slider changes
-    -- The variable (Value) is a number which correlates to the value the slider is currently at
-    end,
-})
-local jumpHack = Player:CreateToggle({
-    Name = "Change JumpPower",
-    CurrentValue = false,
-    Flag = "jumpHack_active", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        getgenv().speedHack = Value;
-        game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
-        JumpPowerSlider:Set(50)
-        Rayfield:Notify({
-            Title = "Module Toggled",
-            Content = "JumpHack has been toggled!",
-            Duration = 6.5,
-            Image = 4483362458,
-            Actions = { -- Notification Buttons
-               Ignore = {
-                  Name = "Ok",
-                  Callback = function()
-                  print("oke")
-               end
-            },
-         },
-         })
-    -- The function that takes place when the toggle is pressed
-    -- The variable (Value) is a boolean on whether the toggle is true or false
-    end,
-})
-local JumpPowerSlider = Player:CreateSlider({
-    Name = "JumpPower",
-    Range = {50, 500},
-    Increment = 10,
-    Suffix = "JumpPower",
-    CurrentValue = 10,
-    Flag = "JumpPower", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
-    -- The function that takes place when the slider changes
-    -- The variable (Value) is a number which correlates to the value the slider is currently at
-    end,
-})
-
-
--- Scripts
-
-local Scripts = Window:CreateTab("Scripts", 0) -- Title, Image
-local ScriptsSection = Scripts:CreateSection("Scripts")
-local infiniteyield = Scripts:CreateButton({
-    Name = "Execute Infinite Yield",
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    -- The function that takes place when the button is pressed
-    end,
-})
-local orca = Scripts:CreateButton({
-    Name = "Execute Orca by 0866",
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/richie0866/orca/master/public/latest.lua'))()
-    -- The function that takes place when the button is pressed
-    end,
-})
-local simplespy = Scripts:CreateButton({
-    Name = "Execute Simple Spy",
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua'))()
-    -- The function that takes place when the button is pressed
-    end,
-})
-local securedex = Scripts:CreateButton({
-    Name = "Execute Secure Dex",
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua', true))()
-    -- The function that takes place when the button is pressed
-    end,
-})
-local realzzhub = Scripts:CreateButton({
-    Name = "Execute RealZzHub",
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/RealZzHub/MainV2/main/Main.lua'))()
-    -- The function that takes place when the button is pressed
-    end,
-})
-
--- Menu Settings
-
-local Settings = Window:CreateTab("Settings", 0) -- Title, Image
-local SettingsSection = Settings:CreateSection("Settings")
-local speedHackBind = Settings:CreateKeybind({
-    Name = "Toggle SpeedHack",
-    CurrentKeybind = "",
-    HoldToInteract = false,
-    Flag = "speedHackBind", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Keybind)
-        if speedHack and keybind then
-            speedHack:Set(false)
-            getgenv().speedHack = false;
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-            WalkSpeedSlider:Set(16)
-        elseif not speedHack and keybind then
-            speedHack:Set(true)
-        getgenv().speedHack = true;
-        end
-
-        
-    -- The function that takes place when the keybind is pressed
-    -- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
-    end,
- })
- local jumpHackBind = Settings:CreateKeybind({
-    Name = "Toggle JumpHack",
-    CurrentKeybind = "",
-    HoldToInteract = false,
-    Flag = "jumpHackBind", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Keybind)
-        jumpHack:Set(true)
-        getgenv().jumpHack = true;
-
-        -- this is the fix for the keybind
-
-        if jumpHack then
-            jumpHack:Set(false)
-            getgenv().jumpHack = false;
-            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 16
-            JumpPowerSlider:Set(16)
-        elseif not jumpHack then
-            jumpHack:Set(true)
-            getgenv().jumpHack = true;
-        end
-        
-
-    -- The function that takes place when the keybind is pressed
-    -- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
-    end,
- })
-local DestroyGUI = Settings:CreateButton({
-    Name = "Destroy the GUI",
-    Callback = function()
-        getgenv().autotap = false;
-        getgenv().autoRebirth = false;
-        getgenv().buyEgg = false;
-        getgenv().speedHack = false;
-        getgenv().jumpHack = false;
-        Rayfield:Destroy()
-    -- The function that takes place when the button is pressed
-    end,
- })
-]]
 
 Rayfield:LoadConfiguration()
