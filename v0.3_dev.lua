@@ -7,7 +7,7 @@ This is the hub that i suddenly decided to develop lol
 This one is for a random clicking simulator
 Here is the link: https://web.roblox.com/games/5490351219/X100-CLICKS-Clicker-Madness
 
-Arrayfield UI Library: 
+Arrayfield UI Library: https://arraydocumentation.vercel.app/en/introduction
 
 CHANGELOG
 
@@ -110,11 +110,12 @@ function teleportWorld(world)
 end
 
 -- UILib
--- Credits to Rayfield creators for a great UI Library 
+-- Credits to Arrays for a great UI Library 
 
 -- Core
 
 getgenv().SecureMode = true
+
 
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/UI-Interface/CustomFIeld/main/RayField.lua'))()
 
@@ -151,7 +152,7 @@ if game.PlaceId == 5490351219 then
     local selectedRebirth;
     local ClickerSim = Window:CreateTab("Clicker Madness", 0) -- Title, Image (default id: 4483362458)
     local ClickerSection = ClickerSim:CreateSection("Farming", true)
-    local autotap_toggle = ClickerSim:CreateToggle({
+    local autotapToggle = ClickerSim:CreateToggle({
         Name = "AutoTap",
         Info = "Taps for you",
         CurrentValue = false,
@@ -195,7 +196,7 @@ if game.PlaceId == 5490351219 then
         -- The variable (Value) is a boolean on whether the toggle is true or false
         end,
      })
-     local rebirth_amount = ClickerSim:CreateDropdown({
+     local rebirthAmount = ClickerSim:CreateDropdown({
         Name = "Rebirth Amount",
         Options = {"1","10","100","1000","10000"},
         CurrentOption = "Not Selected",
@@ -207,7 +208,7 @@ if game.PlaceId == 5490351219 then
         -- The variable (Option) is a string for the value that the dropdown was changed to
         end,
      })
-     local rebirth_toggle = ClickerSim:CreateToggle({
+     local rebirthToggle = ClickerSim:CreateToggle({
         Name = "AutoRebirth",
         Info = "Automatically buys rebirths for you",
         CurrentValue = false,
@@ -418,29 +419,6 @@ local JumpPowerSlider = Player:CreateSlider({
     -- The variable (Value) is a number which correlates to the value the slider is currently at
     end,
 })
-local Flyhack = Player:CreateButton({
-    Name = "FlyHack",
-    Info = "fly like a bird", -- Speaks for itself, Remove if none.
-    Interact = 'Changable',
-    Callback = function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/Nicuse/RobloxScripts/main/BypassedFly.lua'))()
-        Rayfield:Notify({
-            Title = "Module toggled",
-            Content = "FlyHack has been toggled!",
-            Duration = 6.5,
-            Image = 0,
-            Actions = { -- Notification Buttons
-                Ignore = {
-                    Name = "Ok",
-                    Callback = function()
-                        print("oke")
-                    end
-                },
-            },
-        })
-    -- The function that takes place when the button is pressed
-    end,
- })
 
 -- Scripts
 
@@ -487,22 +465,52 @@ local realzzhub = Scripts:CreateButton({
 -- tab, section, paragraph (for output) and textbox. imagine that they are here
 -- not here yet. but soon
 
+local cmdTab = Window:CreateTab("CMD", 0) -- Title, Image
+local cmdSec = cmdTab:CreateSection("CMD",true) -- The 2nd argument is to tell if its only a Title and doesnt contain elements
+local cmdOutput = cmdTab:CreateParagraph({Title = "CMD Output", Content = "Loaded!",cmdSec})
+local cmdInput = cmdTab:CreateInput({
+    Name = ">",
+    Info = "Input for cmd", -- Speaks for itself, Remove if none.
+    PlaceholderText = "<command>",
+    NumbersOnly = false, -- If the user can only type numbers. Remove if none.
+    --CharacterLimit = 15, --max character limit. Remove if none.
+    OnEnter = true, -- Will callback only if the user pressed ENTER while the box is focused.
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Text)
+        if Text == "lock test" then
+            cmdOutput:Set({Title = "CMD Output", Content = "Testing Lock..."})
+            cmdInput:Lock('LockTest')
+            cmdInput:Unlock('LockTest')
+            cmdOutput:Set({Title = "CMD Output", Content = "Finished!"})
+            wait(3)
+            cmdOutput:Set({Title = "CMD Output", Content = ""})
+        else
+            cmdOutput:Set({Title = "CMD Output", Content = "ERROR: invalid syntax"})
+            wait(3)
+            cmdOutput:Set({Title = "CMD Output", Content = ""})
+        end
+    -- The function that takes place when the input is changed
+    -- The variable (Text) is a string for the value in the text box
+    end,
+ })
+
 -- Menu Settings
 
 local Settings = Window:CreateTab("Settings", 0) -- Title, Image
 local SettingsSection = Settings:CreateSection("Settings", true)
+--[[
 local speedHackBind = Settings:CreateKeybind({
     Name = "Toggle SpeedHack",
     CurrentKeybind = "",
     HoldToInteract = false,
     Flag = "speedHackBind", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Keybind)
-        if speedHack and keybind and not speedBindLock then
+        if speedHack and not speedBindLock then
             speedHack:Set(false)
             getgenv().speedHack = false;
             game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
             WalkSpeedSlider:Set(16)
-        elseif not speedHack and keybind and not speedBindLock then
+        elseif not speedHack and not speedBindLock then
             speedHack:Set(true)
             getgenv().speedHack = true;
         end
@@ -516,12 +524,12 @@ local speedHackBind = Settings:CreateKeybind({
     HoldToInteract = false,
     Flag = "jumpHackBind", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Keybind)
-        if jumpHack and keybind and not jumpBindLock then
+        if jumpHack and not jumpBindLock then
             jumpHack:Set(false)
             getgenv().jumpHack = false;
             game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
-            JumpPowerSlider:Set(16)
-        elseif not jumpHack and keybind and not jumpBindLock then
+            JumpPowerSlider:Set(50)
+        elseif not jumpHack and not jumpBindLock then
             jumpHack:Set(true)
             getgenv().jumpHack = true;
         end
@@ -529,65 +537,7 @@ local speedHackBind = Settings:CreateKeybind({
     -- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
     end,
  })
- local Lockdown = Settings:CreateToggle({
-    Name = "Lockdown",
-    Info = "Locks EVERYTHING (real)", -- Speaks for itself, Remove if none.
-    CurrentValue = false,
-    Flag = "Lockdown", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-        if Value then
-            getgenv().autotap = false;
-            getgenv().autoRebirth = false;
-            getgenv().buyEgg = false;
-            getgenv().speedHack = false;
-            getgenv().jumpHack = false;
-            getgenv().speedBindLock = true;
-            getgenv().jumpBindLock = true;
-            autotap_toggle:Set(false)
-            rebirth_toggle:Set(false)
-            autoEgg:Set(false)
-            speedHack:Set(false)
-            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-            WalkSpeedSlider:Set(16)
-            jumpHack:Set(false)
-            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 50
-            JumpPowerSlider:Set(50)
-            autotap_toggle:Lock('Lockdown')
-            rebirth_amount:Lock('Lockdown')
-            rebirth_toggle:Lock('Lockdown')
-            autoEgg:Lock('Lockdown')
-            World:Lock('Lockdown')
-            tpWorld:Lock('Lockdown')
-            speedHack:Lock('Lockdown')
-            WalkSpeedSlider:Lock('Lockdown')
-            jumpHack:Lock('Lockdown')
-            JumpPowerSlider:Lock('Lockdown')
-            infiniteyield:Lock('Lockdown')
-            orca:Lock('Lockdown')
-            simplespy:Lock('Lockdown')
-            securedex:Lock('Lockdown')
-            realzzhub:Lock('Lockdown')
-        else
-            autotap_toggle:Unlock()
-            rebirth_amount:Unlock()
-            rebirth_toggle:Unlock()
-            autoEgg:Unlock()
-            World:Unlock()
-            tpWorld:Unlock()
-            speedHack:Unlock()
-            WalkSpeedSlider:Unlock()
-            jumpHack:Unlock()
-            JumpPowerSlider:Unlock()
-            infiniteyield:Unlock()
-            orca:Unlock()
-            simplespy:Unlock()
-            securedex:Unlock()
-            realzzhub:Unlock()
-        end
-    -- The function that takes place when the toggle is pressed
-    -- The variable (Value) is a boolean on whether the toggle is true or false
-    end,
- })
+]]
 local DestroyGUI = Settings:CreateButton({
     Name = "Destroy the GUI",
     Callback = function()
